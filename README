@@ -1,0 +1,107 @@
+*********************************************************************
+* SISTEMI MULTIMEDIALI - 2015/2016 - (PROF. Paolo Cattani) - UNIPD  *
+* PROGETTO N°3 - Animazione Multimediale Sintetizzata               *
+*********************************************************************
+by Federico Ghirardelli -  1130426                                   |
+---------------------------------------------------------------------
+
+* CONTENTS :
+
+
+1. INTRODUCTION
+2. MAZE GENERATION
+3. GAME SYSTEM
+4. FILES
+5. COMPILE
+6. RUN
+7. SOURCES
+
+  
+
+1. INTRODUZIONE
+----------------------------
+The project was implemented using only graphic libraries
+OpenGL and FreeGlut and the OpenAL audio library.
+
+The application is a minigame with a first-person view, where the goal is
+collect the totality of golden cases, randomly scattered within one
+closed maze, in the shortest possible time.
+
+
+
+2. MAZE GENERATION
+----------------------------
+The three-dimensional maze, by default, consists of 65 * 65 boxes.
+Each box can be either an empty cell, where it is possible to walk, or
+a full cell, that is formed by an impenetrable wall.
+
+The empty boxes have a unique texture on the underside of the cube
+simulates the path that can be walked on.
+Instead, the full boxes are completely texturized.
+To simulate the sky, a skybox was used, a cube of
+considerable size compared to the labyrinth cells and textured with a
+starry sky.
+
+The labyrinth has no rooms but only corridors and is perimetrically
+closed.
+
+For the maze creation a recursive algorithm was used.
+a matrix of size 65 * 65 is initialized to all ones (only walls).
+Partnedo from an initial box, you can visit an adjacent cell in a random 
+direction and recursively recalls the algorithm depending on whether it 
+is concurrent with walls or empty cells, remaining within the perimeter.
+(See sources)
+
+
+
+3. GAME SYSTEM
+----------------------------
+The character, interpreted only by the camera, moves
+forward and backward and rotate the view clockwise and counterclockwise with 
+the corresponding keys: W-S-D-A.
+In conjunction with the camera there is a spotlight light to simulate
+the use of a torch, a directional light with a reduced radial opening cone.
+
+To collect the golden boxes you need to be in a short space around them and press 
+the SPACE key. Auditory feedback is present at the collection.
+
+Instructions of the movements, remaining boxes and score are displayed in the
+"Title Window".
+
+The score is calculated based on the collection time of the speakers (positioned
+randomly during the initial rendering phase).
+A winning message will appear to collect all the boxes.
+
+
+
+4. FILES
+----------------------------
+
+   - images/
+   - sounds/
+   - a.out
+   - audio.cpp
+   - draw.cpp
+   - maze.cpp
+   - texture.cpp
+   - README.txt
+   
+   
+5. COMPILE
+----------------------------
+
+  g++ -o a.out maze.cpp -lGL -lGLU -lglut -lopenal -lalut
+  
+
+6. RUN
+----------------------------
+
+  ./a.out
+
+  
+7. SOURCES
+----------------------------
+
+Maze generator :
+https://www.cefns.nau.edu/~pek7/CS200/Project%209.pdf
+
